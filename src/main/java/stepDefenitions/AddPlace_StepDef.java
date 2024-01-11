@@ -9,24 +9,25 @@ import resources.testData.UtilsClass;
 import java.io.IOException;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static stepDefenitions.CommonSteps.setRequestSpecification;
+import static stepDefenitions.CommonSteps.userCallsApiWithRequest;
 
 
 public class AddPlace_StepDef extends UtilsClass {
 
     RequestSpecification requestSpec;
+    Response response;
     AddPlace addPlace = new AddPlace();
     PayLoads payLoads = new PayLoads();
 
-    CommonSteps commonSteps ;
+    CommonSteps commonSteps = new CommonSteps();
         @Given("Add Place Payload")
         public RequestSpecification addPlacePayload() throws IOException {
              addPlace = payLoads.addPlacePayloadData();
             requestSpec= given().log().all()
                      .spec(requestSpecefication())
                      .body(addPlace);
-            //CommonSteps.setRequestSpecification(requestSpec);
-            commonSteps=new CommonSteps(requestSpec);
+            CommonSteps.setRequestSpecification(requestSpec);
             return requestSpec;
         }
 
@@ -34,19 +35,19 @@ public class AddPlace_StepDef extends UtilsClass {
     public void addPlacePayloadWith(String name, String adress, String language) throws IOException {
         addPlace = payLoads.addPlacePayloadData(name , adress , language);
         requestSpec= given().spec(requestSpecefication()).body(addPlace);
-        commonSteps=new CommonSteps(requestSpec);
+        setRequestSpecification(requestSpec);
     }
 
     @And("verify the generated Place_Id maps to {string} using {string} API")
     public void verifyTheGeneratedPlace_IdMapsToUsingGetPlaceAPI( String placeName, String endpoint) throws IOException
     {
-        commonSteps = new CommonSteps(requestSpec);
         requestSpec =given().log().all()
                 .spec(requestSpecefication())
-                .queryParam("place_id",getJsonValue(commonSteps.getResponse(),"place_id").toString())
+                .queryParam("place_id",getJsonValue(CommonSteps.getResponse(),"place_id").toString())
                 .log().all();
-        commonSteps.userCallsApiWithRequest(endpoint , "get");
-        assertEquals(getJsonValue(commonSteps.getResponse(),"name"),placeName);
+        setRequestSpecification(requestSpec);
+        response = userCallsApiWithRequest(endpoint , "get");
+        assertEquals(getJsonValue(response,"name"),placeName);
     }
 }
 

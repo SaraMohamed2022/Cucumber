@@ -50,7 +50,6 @@ public class UtilsClass
 
     public Object getJsonValue(Response response , String key)
     {
-        System.out.println("Response in getJson value "+ response.asString());
         JsonPath responseJsonPath = new JsonPath(response.asString());
         return responseJsonPath.get(key);
     }
