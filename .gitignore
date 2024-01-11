@@ -36,3 +36,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+ExtentReports/SparkReport_ 10_Jan_24 21_02_00/PdfReport/ExtentPdf.pdf
+ExtentReports/SparkReport_ 10_Jan_24 21_02_00/SparkReport/testReport.html
+ExtentReports/SparkReport_ 10_Jan_24 21_10_30/PdfReport/ExtentPdf.pdf
+ExtentReports/SparkReport_ 10_Jan_24 21_10_30/SparkReport/TestReport.html
+ExtentReports/SparkReport_ 10_Jan_24 21_42_00/PdfReport/ExtentPdf.pdf
+ExtentReports/SparkReport_ 10_Jan_24 21_42_00/SparkReport/TestReport.html
+logging.txt
+qodana.yaml
